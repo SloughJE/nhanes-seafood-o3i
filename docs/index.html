@@ -2706,6 +2706,76 @@ border-radius: 6px;
 </section>
 </div>
 </div>
+<style>
+.o3i-swimming-fish {
+position: fixed;
+right: -80px;
+z-index: 9999;
+pointer-events: none;
+animation: fish-cross var(--swim-duration) linear forwards;
+}
+.o3i-swimming-fish img {
+display: block;
+width: 48px;
+height: 48px;
+image-rendering: pixelated;
+animation: fish-bob 1.4s ease-in-out infinite alternate;
+}
+@keyframes fish-cross {
+to { transform: translateX(calc(-100vw - 160px)); }
+}
+@keyframes fish-bob {
+to { transform: translateY(-157px); }
+}
+@media (prefers-reduced-motion: reduce) {
+.o3i-swimming-fish { display: none; }
+}
+</style>
+
+<script>
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function scheduleNext() {
+    // Random delay: 20 some seconds
+    // setTimeout(swim, 2000);
+    setTimeout(swim, 20000 + Math.random() * 50000);
+  }
+
+  function swim() {
+    if (document.hidden) {
+      scheduleNext();
+      return;
+    }
+
+    const fish = document.createElement('div');
+    fish.className = 'o3i-swimming-fish';
+
+    // Random vertical position and swimming speed
+    fish.style.top = (15 + Math.random() * 65) + 'vh';
+    fish.style.setProperty(
+      '--swim-duration',
+      (8 + Math.random() * 5) + 's'
+    );
+
+    const img = document.createElement('img');
+    img.src = 'favicon.svg';
+    img.alt = '';
+    img.setAttribute('aria-hidden', 'true');
+
+    fish.appendChild(img);
+    document.body.appendChild(fish);
+
+    fish.addEventListener('animationend', function (event) {
+      if (event.target !== fish) return;
+      fish.remove();
+      scheduleNext();
+    });
+  }
+
+  scheduleNext();
+})();
+</script>
 </section>
 
 </main>
