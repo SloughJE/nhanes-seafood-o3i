@@ -24,3 +24,6 @@ _freeze/
 
 # macOS
 .DS_Store
+
+/.quarto/
+**/*.quarto_ipynb
