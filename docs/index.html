@@ -2674,7 +2674,7 @@ border-radius: 6px;
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="Statistical model and uncertainty">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2683,24 +2683,60 @@ border-radius: 6px;
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <section id="statistical-model-and-uncertainty" class="level3 callout-body-container callout-body">
 <h3 data-anchor-id="statistical-model-and-uncertainty">Statistical model and uncertainty</h3>
-<p><strong>Model.</strong> We fit survey-weighted linear regression for continuous red blood cell O3I (EPA% + DHA%):</p>
+<p><strong>Model.</strong> We fit a survey-weighted linear regression model for continuous red blood cell O3I (EPA% + DHA%). The model includes monthly consumption frequencies of high-omega-3, low-omega-3, and unclassified seafood and identified omega-3 supplement use, adjusting for age, sex, race/ethnicity, education, BMI, and smoking status. Seafood coefficients represent O3I percentage points per additional monthly consumption occasion. Tuna occasions are allocated 30% to high- and 70% to low-omega-3 seafood under the project classification rule.</p>
+<p><strong>Estimation.</strong> For each selected exposure pattern, O3I predictions are averaged over the observed distribution of the adjustment variables in the analytic sample, using survey weights. These variables are therefore not user-selectable, as the objective is to estimate population-average O3I rather than predict an individual’s O3I.</p>
+<p><strong>Comparison with the reference.</strong> The estimated difference in O3I is calculated relative to a reference pattern of no seafood consumption or omega-3 supplement use in the past 30 days. Both estimates are based on the same distribution of adjustment variables.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Mathematical details">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Mathematical details
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model specification</strong></p>
 <p><span class="math display">\[
 \mathrm{E}(Y_i\mid H_i,L_i,U_i,S_i,\mathbf Z_i)
 =\beta_0+\beta_HH_i+\beta_LL_i+\beta_UU_i+\beta_SS_i+\boldsymbol\gamma^\top\mathbf Z_i.
 \]</span></p>
-<p><span class="math inline">\(H_i\)</span>, <span class="math inline">\(L_i\)</span>, and <span class="math inline">\(U_i\)</span> are monthly occasions of high-, low-, and unclassified seafood; <span class="math inline">\(S_i\)</span> indicates an identified omega-3 supplement (1 = yes); and <span class="math inline">\(\mathbf Z_i\)</span> includes age, sex, race/ethnicity, education, BMI, and smoking. Seafood coefficients represent <strong>O3I percentage points per additional occasion</strong>. Tuna occasions are allocated 30% to high- and 70% to low-omega-3 seafood under the project classification rule.</p>
-<p><strong>Estimation.</strong> For each selected exposure pattern, we predict O3I for every analytic participant, keeping other covariates at their observed values. The reported mean averages these predictions using survey weights:</p>
+<p><span class="math inline">\(H_i\)</span>, <span class="math inline">\(L_i\)</span>, and <span class="math inline">\(U_i\)</span> are monthly occasions of high-omega-3, low-omega-3, and unclassified seafood; <span class="math inline">\(S_i\)</span> indicates identified omega-3 supplement use (1 = yes); and <span class="math inline">\(\mathbf Z_i\)</span> is the vector of adjustment variables.</p>
+<p><strong>Survey-weighted standardized mean</strong></p>
 <p><span class="math display">\[
 \widehat{\mu}(h,l,u,s)=
-\frac{\sum_{i=1}^{n} w_i\,\widehat{m}(h,l,u,s,\mathbf Z_i)}{\sum_{i=1}^{n} w_i},
+\frac{\sum_{i=1}^{n} w_i\,\widehat{m}(h,l,u,s,\mathbf Z_i)}
+{\sum_{i=1}^{n} w_i},
 \]</span></p>
-<p>where <span class="math inline">\(\widehat{m}\)</span> denotes the fitted conditional mean. With no interaction terms, the difference from the zero-exposure reference is simply:</p>
+<p>where <span class="math inline">\(\widehat{m}\)</span> denotes the fitted conditional mean and <span class="math inline">\(w_i\)</span> denotes the survey weight for participant <span class="math inline">\(i\)</span>.</p>
+<p>Because the model is linear and additive, this is equivalent to:</p>
 <p><span class="math display">\[
-\widehat{\Delta}=\widehat{\beta}_Hh+\widehat{\beta}_Ll+\widehat{\beta}_Uu+\widehat{\beta}_Ss.
+\widehat{\mu}(h,l,u,s)=
+\widehat{\beta}_0+
+\widehat{\beta}_Hh+
+\widehat{\beta}_Ll+
+\widehat{\beta}_Uu+
+\widehat{\beta}_Ss+
+\widehat{\boldsymbol\gamma}^{\top}\overline{\mathbf Z}_w,
 \]</span></p>
+<p>where <span class="math inline">\(\overline{\mathbf Z}_w\)</span> is the survey-weighted mean vector of the adjustment variables as encoded in the model matrix.</p>
+<p><strong>Difference from the reference</strong></p>
+<p>With no interaction terms, the adjustment variable contributions cancel when calculating the difference from the zero-exposure reference:</p>
+<p><span class="math display">\[
+\widehat{\Delta}=
+\widehat{\beta}_Hh+
+\widehat{\beta}_Ll+
+\widehat{\beta}_Uu+
+\widehat{\beta}_Ss.
+\]</span></p>
+</div>
+</div>
+</div>
 <p><strong>Uncertainty.</strong> The 95% Wald CIs use the survey-design coefficient covariance matrix and <strong>15 survey-design degrees of freedom</strong>. They hold the analytic sample’s covariates and weights fixed, so they do not capture all uncertainty in a population-standardized mean. They are <strong>not individual prediction intervals</strong>.</p>
 <p><strong>Limitations.</strong> Associations are cross-sectional, not causal. Seafood frequency and binary supplement use do not quantify EPA/DHA dose. Some slider combinations are sparsely observed, and the model assumes additive linear associations. The survey design uses <code>WTDRD1</code> (the NHANES Day 1 dietary interview weight), following the guidance for the 30-day seafood-frequency and dietary supplement variables.</p>
 </section>
